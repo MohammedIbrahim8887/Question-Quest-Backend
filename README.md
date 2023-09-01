@@ -17,7 +17,7 @@ This repository contains the backend code for Question Quest, a platform that pr
 
 ##### this is the logic we performed to accomplish the API
 
-<img src="BackEndFlow-1.png" style="background-color:white; padding:40px; margin:5px; width:60%"/>
+<img src="public/Untitled Diagram.png" />
 
 ## Technologies Used
 
