@@ -1,27 +1,32 @@
 import dotenv from "dotenv";
 import express from "express";
-import bodyParser from "body-parser"; // Add this line to parse JSON request bodies
-dotenv.config();
+import postRoutes from "./src/routes/postPDF.js";
+import deleteRoutes from "./src/routes/deletePDF.js";
+import putRoutes from "./src/routes/putPDF.js";
+import getRoutes from "./src/routes/getPDF.js";
 
+dotenv.config();
 const app = express();
 
-// Middleware to parse JSON request bodies
-app.use(bodyParser.json());
+const PORT = 4000;
+const URL = "http://localhost:";
 
-app.listen(3000, () => {
-  console.log("Server started on port 3000");
+// Middleware path for the routes
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
 });
+app.use("/postPDF", postRoutes);
+app.use("/getPDF", getRoutes);
+app.use("/deletePDF", deleteRoutes);
+app.use("/putPDF", putRoutes);
 
-// GET endpoint
-app.get("/api/getData", (req, res) => {
-  res.json({ message: "This is a GET request." });
-});
-
-// POST endpoint
-app.post("/api/postData", (req, res) => {
-  // Access the POST data from req.body
-  const postData = req.body;
-
-  // Replace this with your desired response
-  res.json({ message: "This is a POST request.", data: postData });
+app.listen(4000, (req, res) => {
+  console.log(`listening for requests on port ${URL}${PORT}`);
 });
